@@ -30,7 +30,7 @@
       <p>{{ product.description }}</p>
     </div>
   </div>
-  <notFoundPage v-else />
+  <notFoundPage v-else-if="!product" />
 </template>
 
 <script>
@@ -45,7 +45,7 @@ export default {
   data() {
     return {
       cartItemsIds: [],
-      product: null,
+      product: 1,
       addedToCart: false,
     }
   },
@@ -71,7 +71,11 @@ export default {
     //this.product
     let response = await axios.get('/api/products/' + this.$route.params.id)
     const product = response.data;
-    this.product = product;
+    if (!product) {
+      this.product = null
+    } else {
+      this.product = product;
+    }
 
     //user's cart items
     const cartItemsResponse = await axios.get('/api/users/12345/cart')

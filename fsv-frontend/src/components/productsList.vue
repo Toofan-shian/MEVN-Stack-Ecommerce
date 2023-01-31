@@ -22,7 +22,9 @@ export default {
   ],
   computed: {
     totalPrice() {
-      return this.products.reduce((sum, item) => sum += +item.price, 0)
+      if (this.products) {
+        return this.products.reduce((sum, item) => sum += +item.price, 0)
+      }
     }
   }
 }
